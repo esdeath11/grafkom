@@ -39,31 +39,45 @@ int stateVertikalBesar2 = 1;
 int stateVertikalBesar3 = 1;
 int stateVertikalBesar4 = 1;
 int uang = 1000;
+int menushopstat = 1;
+int ikanshopStat = 1;
+int statusBeli;
+int statusBeli2;
+int statusBeli3;
+int statusBeli4;
 int hargaIkan = 500;
 int hargaJualIkan = 250;
 int jumlahIkan;
 int hargaKolam = 1500;
 int dayaTampung = 3;
-int pilihan;
+int y_pilihan;
+int x_pilihan;
+int stateIkan = 0;
 int posIkan;
 void timer(int);
 int a;
-int umurDewasa = 10;
-int age;
+bool menuStat = false;
+int umurDewasa = 5;
+int umurDewasa2 = 10;
+int umurDewasa3 = 15;
+int umurDewasa4 = 20;
+int age[4]={0,0,0,0};
+int statemenu[3] = {0,0,0};
 float status[] = {0,1,2,3};
+bool check;
 void timerUmur(int);
 int purchase;
 bool jual,beli;
-float IkanBanyak[4][9]={{5.0f,115.0f,394.0f,463.0f,80.0f,0.0f,0.0f,0.5f,0.5f},
-                        {5.0f,115.0f,394.0f,463.0f,100.0f,-80.0f,0.0f,0.5f,0.5f},
-                        {5.0f,115.0f,394.0f,463.0f,80.0f,-160.0f,0.0f,0.5f,0.5f},
-                        {5.0f,115.0f,394.0f,463.0f,80.0f,-240.0f,0.0f,0.5f,0.5f}};
-///x1,x2,y1,y2,tranx,transy,relatifx1,relatifx2,relatify1,relatify2,kehidupan,scalex,scaley
+float IkanBanyak[4][10]={{5.0f,115.0f,394.0f,463.0f,80.0f,0.0f,0.0f,0.5f,0.5f,5.0f},
+                        {5.0f,115.0f,394.0f,463.0f,100.0f,-80.0f,0.0f,0.5f,0.5f,10.0f},
+                        {5.0f,115.0f,394.0f,463.0f,80.0f,-160.0f,0.0f,0.5f,0.5f,15.0f},
+                        {5.0f,115.0f,394.0f,463.0f,80.0f,-240.0f,0.0f,0.5f,0.5f,20.0f}};
+///x1,x2,y1,y2,tranx,transy,relatifx1,relatifx2,relatify1,relatify2,kehidupan,scalex,scaley,umur
 
-float IkanBesar[4][9]={{5.0f,115.0f,394.0f,463.0f,80.0f,0.0f,0.0f,1.0f,1.0f},
-                        {5.0f,115.0f,394.0f,463.0f,100.0f,-80.0f,0.0f,1.0f,1.0f},
-                        {5.0f,115.0f,394.0f,463.0f,80.0f,-160.0f,0.0f,1.0f,1.0f},
-                        {5.0f,115.0f,394.0f,463.0f,80.0f,-240.0f,0.0f,1.0f,1.0f}};
+float IkanBesar[4][10]={{5.0f,115.0f,394.0f,463.0f,80.0f,0.0f,0.0f,1.0f,1.0f,10.0f},
+                        {5.0f,115.0f,394.0f,463.0f,100.0f,-80.0f,0.0f,1.0f,1.0f,10.0f},
+                        {5.0f,115.0f,394.0f,463.0f,80.0f,-160.0f,0.0f,1.0f,1.0f,10.0f},
+                        {5.0f,115.0f,394.0f,463.0f,80.0f,-240.0f,0.0f,1.0f,1.0f,10.0f}};
 
 
 void Bawah(){
@@ -104,6 +118,29 @@ void Atas(){
         }
     }
 }
+
+
+
+
+void GambarSegitiga(){
+glBegin(GL_POLYGON);
+glVertex2f(200,400);
+glVertex2f(260,360);
+glVertex2f(260,340);
+glVertex2f(200,300);
+glEnd();
+}
+
+void Gambarmenu(){
+glBegin(GL_POLYGON);
+glVertex2f(300,400);
+glVertex2f(500,400);
+glVertex2f(500,300);
+glVertex2f(300,300);
+glEnd();
+}
+
+
 
 
 void gambarIkan(){
@@ -195,6 +232,109 @@ void ikan(){
     gambarIkan();
     glPopMatrix();
 }
+
+
+
+
+void menu(){
+    glPushMatrix();
+    glTranslated(-20,50,0);
+    Gambarmenu();
+    glPopMatrix();
+}
+
+void menu2(){
+    glPushMatrix();
+    glTranslated(-20,-150,0);
+    Gambarmenu();
+    glPopMatrix();
+}
+
+void segitiga(){
+glPushMatrix();
+glTranslated(0,50+y_pilihan,0);
+if (statemenu[2] == 1){
+    GambarSegitiga();
+}
+else{
+
+}
+glPopMatrix();
+}
+
+void menuShop(){
+    if(statemenu[0] == 1 && statemenu[1] == 1 && statemenu[1] == 1){
+        menu();
+        menu2();
+        segitiga();
+    }
+    else{
+
+    }
+}
+
+
+void Gambarsegitiga2(){
+    glBegin(GL_POLYGON);
+    glVertex2f(320,460);
+    glVertex2f(420,460);
+    glVertex2f(380,420);
+    glVertex2f(360,420);
+    glEnd();
+}
+
+
+
+void GambarmenuIkan(){
+float koorx2[4] = {300,440,440,300};
+for (int i = 0;i < 4;i++){
+    glBegin(GL_POLYGON);
+    glVertex2f(koorx2[0],400);
+    glVertex2f(koorx2[1],400);
+    glVertex2f(koorx2[2],320);
+    glVertex2f(koorx2[3],320);
+    glEnd();
+    for (int w = 0;w < 4;w++){
+        koorx2[w]+= 200;
+    }
+}
+}
+
+
+
+
+
+
+void segitiga2(){
+glPushMatrix();
+glTranslated(-270+x_pilihan,-50,0);
+Gambarsegitiga2();
+glPopMatrix();
+}
+
+void menuIkan(){
+glPushMatrix();
+glTranslated(-270,-50,0);
+GambarmenuIkan();
+glPopMatrix();
+}
+
+
+void MenuIkanShop(){
+    if (stateIkan == 1){
+        menuIkan();
+        segitiga2();
+    }
+    else{
+
+    }
+}
+
+
+
+
+
+
 
 
 
@@ -561,19 +701,27 @@ void ikanBesar(){
 void pembelian(){
     switch(a){
     case 1:
+        uang -= 100;
         IkanBanyak[0][6] = 1;
+        statusBeli = 1;
        // IkanBesar[0][6] = 1;
         break;
     case 2:
+        uang -= 100;
         IkanBanyak[1][6] = 1;
+        statusBeli2 = 1;
       //  IkanBesar[1][6] = 1;
         break;
     case 3:
+        uang -= 100;
         IkanBanyak[2][6] = 1;
+        statusBeli3 = 1;
       //  IkanBesar[2][6] = 1;
         break;
     case 4:
+        uang -= 100;
         IkanBanyak[3][6] = 1;
+        statusBeli4 = 1;
       //  IkanBesar[3][6] = 1;
         break;
     }
@@ -581,17 +729,21 @@ void pembelian(){
 
 void penjualan(){
     switch(a){
-    case 1:
-        IkanBanyak[0][6] = 0;
-        break;
-    case 2:
-        IkanBanyak[1][6] = 0;
+    case 4:
+        IkanBesar[0][6] = 0;
+        age[0] = 0;
         break;
     case 3:
-        IkanBanyak[2][6] = 0;
+        IkanBesar[1][6] = 0;
+        age[1] = 0;
         break;
-    case 4:
-        IkanBanyak[3][6] = 0;
+    case 2:
+        IkanBesar[2][6] = 0;
+        age[2] = 0;
+        break;
+    case 1:
+        IkanBesar[3][6] = 0;
+        age[4] = 0;
         break;
     }
 }
@@ -620,55 +772,125 @@ void timer(int){
 
 
 void pertumbuhan(){
-    if (age == umurDewasa){
+    if (age[0] == IkanBanyak[0][9]){
         IkanBanyak[0][6] = 0;
         IkanBesar[0][6] = 1;
     }
 }
-void timerUmur(int){
-glutTimerFunc(1000,timerUmur, 0);
-age += 1;
-pertumbuhan();
+void pertumbuhan2(){
+    if (age[1] == IkanBanyak[1][9]){
+        IkanBanyak[1][6] = 0;
+        IkanBesar[1][6] = 1;
+    }
+}
+void pertumbuhan3(){
+    if (age[2] == IkanBanyak[2][9]){
+        IkanBanyak[2][6] = 0;
+        IkanBesar[2][6] = 1;
+    }
+}
+void pertumbuhan4(){
+    if (age[3] == IkanBanyak[3][9]){
+        IkanBanyak[3][6] = 0;
+        IkanBesar[3][6] = 1;
+    }
 }
 
 
 
 
 
+void timerUmur(int){
+glutTimerFunc(1000,timerUmur, 0);
+    if (statusBeli == 1){
+        age[0] += 1;
+        pertumbuhan();
+    }
+    if (statusBeli2 == 1){
+        age[1] +=1;
+        pertumbuhan2();
+    }
+    if (statusBeli3 == 1){
+        age[2] += 1;
+        pertumbuhan3();
+    }
+    if (statusBeli4 == 1){
+        age[3] += 1;
+        pertumbuhan4();
+    }
 
-
+}
 
 
 
 
 void keyboard_gameplay(unsigned char key, int x, int y){
-    if(key == 'q'){
-          if(uang > 49){
-            if(a <= 4){
-                a+=1;
-                pembelian();
-            }
-            else{
-                printf("full");
-            }
-          }
-          else{
-            printf("uang tidak cukup");
-          }
-
+    if (key == 'd'){
+        if(x_pilihan < 600){
+            x_pilihan +=200;
+        }
     }
-    if(key == 'w'){
-        if (a >= 0){
-            penjualan();
-            a-=1;
-            uang += 50;
+    if (key == 'a'){
+        if (x_pilihan > 0){
+            x_pilihan -= 200;
+        }
+    }
+    if (key == 'w'){
+        if (y_pilihan < 0){
+            y_pilihan += 200;
         }
         else{
-            printf("tidak punya ikan");
+            y_pilihan -= 200;
         }
     }
-
+    if (key == 's'){
+        if(y_pilihan > 0){
+            y_pilihan -= 200;
+        }
+        else{
+            y_pilihan = -200;
+        }
+    }
+    if (key == 'x'){
+        if (menushopstat %2 == 1 && menuStat == false){
+            statemenu[0] = 1;
+            statemenu[1] = 1;
+            statemenu[2] = 1;
+            menushopstat +=1;
+            menuShop();
+        }
+        else{
+            statemenu[0] = 0;
+            statemenu[1] = 0;
+            statemenu[2] = 0;
+            menushopstat+=1;
+            menuShop();
+        }
+    }
+    if (key == 'k'){
+            menuStat = true;
+        if (y_pilihan == 0){
+            statemenu[0] = 0;
+            statemenu[1] = 0;
+            statemenu[2] = 0;
+            stateIkan = 1;
+        }
+        if (y_pilihan == -200){
+            statemenu[0] = 0;
+            statemenu[1] = 0;
+            statemenu[2] = 0;
+            stateIkan = 1;
+        }
+    }
+    if (key == 'l'){
+        menuStat = false;
+        stateIkan = 0;
+        statemenu[0] = 1;
+        statemenu[1] = 1;
+        statemenu[2] = 1;
+    }
 }
+
 
 
 
@@ -678,7 +900,8 @@ uang = 100;
 ikanbyk();
 ikanBesar();
 pertumbuhan();
-printf("%d",age);
+menuShop();
+MenuIkanShop();
 glutKeyboardFunc(keyboard_gameplay);
 }
 
