@@ -1,10 +1,10 @@
 # depslib dependency file v1.0
-1574741964 source:d:\jnck\juraganlele v 5.1\main.cpp
+1574997709 source:d:\jnck\juraganlele v 5.1\main.cpp
 	<windows.h>
 	<GLUT/glut.h>
 	<GL/glut.h>
-	<stdio.h>
 	<stdlib.h>
+	<stdio.h>
 
 1301111162 e:\codeblocks\mingw\include\windows.h
 	<winresrc.h>
